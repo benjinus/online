@@ -1,0 +1,42 @@
+import { newSpecPage } from '@stencil/core/testing';
+import { FibonacciCalculator } from './my-component';
+
+describe('fibonacci-calculator', () => {
+  it('renders', async () => {
+    const { root } = await newSpecPage({
+      components: [FibonacciCalculator],
+      html: '<fibonacci-calculator></fibonacci-calculator>',
+    });
+    expect(root).toEqualHtml(`
+      <fibonacci-calculator>
+        <mock:shadow-root>
+          <div class="fibonacci-calculator">
+            <div class="header">
+              <h1>🧮 Fibonacci Calculator</h1>
+              <p>High-performance Fibonacci calculation using Web Workers</p>
+            </div>
+            <form class="calculator-form">
+              <div class="input-group">
+                <label htmlfor="fibonacci-input">
+                  Enter a number (0-10000):
+                </label>
+                <input id="fibonacci-input" max="10000" min="0" type="number" value="10">
+                <button class="calculate-btn" type="submit">
+                  🚀 Calculate
+                </button>
+              </div>
+            </form>
+            <div class="info">
+              <h3>ℹ️ About</h3>
+              <p>
+                This component uses a Web Worker to calculate Fibonacci numbers efficiently 
+                without blocking the main UI thread. It includes memoization for optimal performance 
+                and supports calculations up to F(10000).
+              </p>
+            </div>
+          </div>
+        </mock:shadow-root>
+      </fibonacci-calculator>
+    `);
+  });
+});
